@@ -9,7 +9,7 @@ from fastapi.responses import StreamingResponse
 
 from fault_archive.api_gateways.payload_schema import ArchiveRequest
 
-router = APIRouter(prefix="/api/v1/archive", tags=["archive"])
+router = APIRouter(prefix="/api/v1", tags=["archive"])
 
 
 async def _stream_narrative(truth_input: str) -> AsyncIterator[str]:
@@ -30,7 +30,7 @@ async def _stream_narrative(truth_input: str) -> AsyncIterator[str]:
     yield "data: [DONE]\n\n"
 
 
-@router.post("/stream")
+@router.post("/generate")
 async def stream_archive(request: ArchiveRequest) -> StreamingResponse:
     """接收事实并返回 SSE 事件流。"""
 

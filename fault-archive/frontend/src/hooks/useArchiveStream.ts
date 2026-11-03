@@ -3,6 +3,10 @@ import { consumeSseResponse } from "../services/sse_consumer";
 
 export type StreamStatus = "idle" | "connecting" | "streaming" | "complete" | "error";
 
+const API_URL =
+  import.meta.env.VITE_ARCHIVE_STREAM_URL ||
+  "http://127.0.0.1:8000/api/v1/generate";
+
 export function useArchiveStream() {
   const [text, setText] = useState("");
   const [status, setStatus] = useState<StreamStatus>("idle");
@@ -22,10 +26,9 @@ export function useArchiveStream() {
     setText("");
     setError("");
     setStatus("connecting");
-    console.info("[Fault Archive] Generate requested", { endpoint: import.meta.env.VITE_ARCHIVE_STREAM_URL || "/api/v1/archive/stream" });
+    console.info("[Fault Archive] Generate requested", { endpoint: API_URL });
     try {
-      const endpoint = import.meta.env.VITE_ARCHIVE_STREAM_URL || "/api/v1/archive/stream";
-      const response = await fetch(endpoint, {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: { Accept: "text/event-stream", "Content-Type": "application/json" },
         body: JSON.stringify({ truth_input: truthInput }),
@@ -45,7 +48,12 @@ export function useArchiveStream() {
       );
     } catch (reason) {
       if (controller.signal.aborted) return;
-      const message = reason instanceof Error ? reason.message : "生成失败，请稍后重试。";
+      const message =
+        reason instanceof TypeError
+          ? `无法连接生成服务（${API_URL}）。请确认后端已启动，并检查网络与 CORS 配置。浏览器详情：${reason.message}`
+          : reason instanceof Error
+            ? reason.message
+            : `生成失败，请检查后端连接。${String(reason)}`;
       console.error("[Fault Archive] Stream request failed", reason);
       setError(message);
       setStatus("error");

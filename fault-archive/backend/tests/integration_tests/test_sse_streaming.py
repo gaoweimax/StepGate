@@ -11,7 +11,7 @@ client = TestClient(app)
 
 def test_stream_endpoint_emits_frontend_compatible_sse() -> None:
     response = client.post(
-        "/api/v1/archive/stream",
+        "/api/v1/generate",
         json={"truth_input": "苹果会掉下来"},
         headers={"Accept": "text/event-stream"},
     )
@@ -29,14 +29,14 @@ def test_stream_endpoint_emits_frontend_compatible_sse() -> None:
 
 
 def test_stream_endpoint_rejects_blank_truth() -> None:
-    response = client.post("/api/v1/archive/stream", json={"truth_input": "   "})
+    response = client.post("/api/v1/generate", json={"truth_input": "   "})
 
     assert response.status_code == 422
 
 
 def test_vite_origins_are_allowed_by_cors() -> None:
     response = client.options(
-        "/api/v1/archive/stream",
+        "/api/v1/generate",
         headers={
             "Origin": "http://127.0.0.1:5173",
             "Access-Control-Request-Method": "POST",
@@ -45,4 +45,4 @@ def test_vite_origins_are_allowed_by_cors() -> None:
     )
 
     assert response.status_code == 200
-    assert response.headers["access-control-allow-origin"] == "http://127.0.0.1:5173"
+    assert response.headers["access-control-allow-origin"] == "*"

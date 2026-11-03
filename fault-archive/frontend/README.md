@@ -7,8 +7,9 @@ npm install
 npm run dev
 ```
 
-Vite serves the app at `http://localhost:5173` and proxies `/api` requests to
-`http://127.0.0.1:8000`.
+Vite serves the app at `http://localhost:5173`. The browser sends the stream
+request directly to `http://127.0.0.1:8000/api/v1/generate`; the API allows
+local development requests through CORS.
 
 Start the API in a second terminal:
 
@@ -18,7 +19,8 @@ python -m pip install -e ".[test]"
 python -m uvicorn fault_archive.application_bootstrap:app --app-dir src --reload --host 127.0.0.1 --port 8000
 ```
 
-Set `VITE_ARCHIVE_STREAM_URL` in `.env.local` to use a different SSE endpoint.
+Set `VITE_ARCHIVE_STREAM_URL` in `.env.local` to override the API URL. Restart
+Vite after changing the environment file.
 
 The stream request is a `POST` with JSON `{ "truth_input": "..." }` and an
 `Accept: text/event-stream` header. The response is parsed as SSE; `data:` events
