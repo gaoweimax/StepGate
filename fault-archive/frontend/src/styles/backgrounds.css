@@ -1,0 +1,71 @@
+.app-shell {
+  background:
+    radial-gradient(ellipse at 74% 14%, var(--accent-glow), transparent 34%),
+    radial-gradient(ellipse at 12% 72%, var(--accent-soft), transparent 32%),
+    var(--page);
+  transition: background-color 500ms ease, color 500ms ease;
+}
+
+.app-shell[data-theme="cyber"] {
+  background-image:
+    linear-gradient(rgba(4, 8, 6, 0.93), rgba(4, 8, 6, 0.93)),
+    radial-gradient(ellipse at 75% 15%, rgba(32, 255, 103, 0.23), transparent 40%),
+    linear-gradient(90deg, transparent 49.9%, rgba(131, 255, 141, 0.025) 50%, transparent 50.1%);
+  background-size: auto, auto, 90px 90px;
+}
+
+.app-shell[data-theme="paper"] {
+  background-image:
+    radial-gradient(ellipse at 15% 13%, rgba(255, 250, 229, 0.55), transparent 45%),
+    radial-gradient(ellipse at 86% 76%, rgba(129, 83, 39, 0.17), transparent 38%),
+    repeating-linear-gradient(3deg, rgba(91, 67, 39, 0.025) 0 1px, transparent 1px 5px);
+}
+
+.app-shell[data-theme="holo"] {
+  background-image:
+    radial-gradient(ellipse at 75% 16%, rgba(107, 108, 255, 0.22), transparent 37%),
+    radial-gradient(ellipse at 15% 86%, rgba(45, 193, 231, 0.1), transparent 34%),
+    linear-gradient(135deg, transparent 40%, rgba(176, 173, 255, 0.025) 50%, transparent 60%);
+  background-size: auto, auto, 300% 300%;
+  animation: holo-drift 24s ease infinite;
+}
+
+.app-shell[data-theme]::before {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.app-shell[data-theme="cyber"]::before {
+  opacity: 0.18;
+  background: repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0, 0, 0, 0.45) 4px 5px);
+  mix-blend-mode: multiply;
+}
+
+.app-shell[data-theme="paper"]::before {
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
+}
+
+.app-shell[data-theme="holo"]::before {
+  opacity: 0.12;
+  background: linear-gradient(115deg, transparent 20%, rgba(157, 231, 255, 0.12) 48%, transparent 55%);
+  background-size: 220% 100%;
+  animation: holo-shimmer 12s linear infinite;
+}
+
+.ambient {
+  position: absolute;
+  z-index: 0;
+  width: 28rem;
+  height: 28rem;
+  border: 1px solid var(--panel-border);
+  border-radius: 50%;
+  opacity: 0.27;
+  pointer-events: none;
+}
+
+.ambient--one { top: 5rem; right: -17rem; box-shadow: 0 0 0 3rem var(--accent-soft), 0 0 0 7rem rgba(120, 255, 144, 0.02); }
+.ambient--two { bottom: 4rem; left: -24rem; width: 35rem; height: 35rem; opacity: 0.17; }
