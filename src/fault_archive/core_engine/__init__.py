@@ -1,0 +1,1 @@
+"""Core narrative-generation logic."""

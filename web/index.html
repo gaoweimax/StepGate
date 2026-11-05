@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050505" />
+    <meta
+      name="description"
+      content="输入一条真理，解密一段从未发生过的历史。"
+    />
+    <title>FAULT ARCHIVE // 谬误档案馆</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&family=Share+Tech+Mono&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Fault Archive 首页">
+          <span class="brand-mark">F<span>_</span></span>
+          <span class="brand-copy">
+            <strong>FAULT ARCHIVE</strong>
+            <small>时间线异常调查局 // TERMINAL 01</small>
+          </span>
+        </a>
+        <div class="system-status"><span class="status-light"></span> SYSTEM ONLINE</div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <p class="eyebrow">REALITY IS A BUG <span>///</span> ARCHIVE ACCESS GRANTED</p>
+          <h1>真理只是<br /><span>尚未修复的错误。</span></h1>
+          <p class="intro">输入一条确定的事实。解密它从未发生过的历史。</p>
+        </section>
+
+        <form class="control-panel" id="archive-form">
+          <label class="truth-field" for="truth">
+            <span class="field-label"><b>01</b> 输入待解密真理</span>
+            <input
+              id="truth"
+              name="truth"
+              type="text"
+              maxlength="500"
+              autocomplete="off"
+              placeholder="例如：光速是不变的"
+              required
+            />
+          </label>
+          <label class="style-field" for="style-key">
+            <span class="field-label"><b>02</b> 选择解密协议</span>
+            <select id="style-key" name="style_key">
+              <option value="cyber_hacker">赛博黑客</option>
+              <option value="medieval_scholar">中世纪学者</option>
+              <option value="sre_postmortem">SRE 复盘</option>
+            </select>
+          </label>
+          <button class="generate-button" id="generate" type="submit">
+            <span aria-hidden="true">[</span>
+            <span class="button-label">开始解密</span>
+            <span aria-hidden="true">]</span>
+          </button>
+        </form>
+
+        <section class="terminal" aria-label="历史解密终端">
+          <div class="terminal-bar">
+            <div class="terminal-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+            <span>ARCHIVE_STREAM // ENCRYPTED</span>
+            <span class="terminal-status" id="stream-status">等待输入</span>
+          </div>
+          <div class="terminal-output" id="output" aria-live="polite">
+            <p class="welcome-line"><span>&gt;</span> 档案终端已就绪。等待输入真理...</p>
+            <p class="welcome-hint">提示：试试「光速是不变的」</p>
+          </div>
+          <div class="terminal-footer">
+            <span>END OF KNOWN HISTORY</span>
+            <span class="cursor" aria-hidden="true">█</span>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>© FAULT ARCHIVE // THE PAST IS A SUGGESTION</span>
+        <span>NO TRUTH WAS VERIFIED IN THIS PROCESS</span>
+      </footer>
+    </div>
+  </body>
+</html>
